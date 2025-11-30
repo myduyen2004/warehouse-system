@@ -1,0 +1,340 @@
+### ============================================
+### WAREHOUSE MANAGEMENT SYSTEM - API TESTS
+### ============================================
+
+### VARIABLES
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2NDM4NzMxNSwiZXhwIjo0OTE3OTg3MzE1fQ.KvrjiA5b5LUZUiYPZ5ZCUxF8XjfI4lUeE6w_53BEJI6vT78ObXYgcuYJ608fjXEmM0NW_b_mkJXzc3V9T4l-3Q
+### ============================================
+### 1. AUTHENTICATION
+### ============================================
+
+### 1.1 Login Admin
+# @name loginAdmin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+### 1.2 Login Manager
+# @name loginManager
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "manager",
+  "password": "manager123"
+}
+
+### 1.3 Register New User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "staff1",
+  "password": "staff123",
+  "email": "staff1@warehouse.com",
+  "fullName": "Staff User 1",
+  "phoneNumber": "0999888777",
+  "role": "STAFF"
+}
+
+
+### ============================================
+### 2. HEALTH CHECK
+### ============================================
+
+### 2.1 Actuator Health
+GET {{baseUrl}}/actuator/health
+
+### 2.2 Actuator Info
+GET {{baseUrl}}/actuator
+
+
+### ============================================
+### 3. WAREHOUSE MANAGEMENT
+### ============================================
+
+### 3.1 Get All Warehouses
+GET {{baseUrl}}/api/warehouses
+Authorization: Bearer {{token}}
+
+### 3.2 Get Warehouse by ID
+GET {{baseUrl}}/api/warehouses/1
+Authorization: Bearer {{token}}
+
+### 3.3 Create New Warehouse
+POST {{baseUrl}}/api/warehouses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Kho Da Nang",
+  "address": "789 Le Duan, Hai Chau",
+  "city": "Da Nang",
+  "district": "Hai Chau",
+  "latitude": 16.0544,
+  "longitude": 108.2022,
+  "capacity": 8000,
+  "phoneNumber": "0236123456",
+  "managerName": "Le Van C",
+  "status": "ACTIVE"
+}
+
+### 3.4 Update Warehouse
+PUT {{baseUrl}}/api/warehouses/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Kho Ha Noi - Updated",
+  "address": "123 Duong Lang, Dong Da",
+  "city": "Ha Noi",
+  "district": "Dong Da",
+  "latitude": 21.0285,
+  "longitude": 105.8542,
+  "capacity": 12000,
+  "phoneNumber": "0241234567",
+  "managerName": "Nguyen Van A",
+  "status": "ACTIVE"
+}
+
+### 3.5 Delete Warehouse
+DELETE {{baseUrl}}/api/warehouses/3
+Authorization: Bearer {{token}}
+
+
+### ============================================
+### 4. PRODUCT MANAGEMENT
+### ============================================
+
+### 4.1 Get All Products (Paginated)
+GET {{baseUrl}}/api/products?page=0&size=10
+Authorization: Bearer {{token}}
+
+### 4.2 Get Product by ID
+GET {{baseUrl}}/api/products/1
+Authorization: Bearer {{token}}
+
+### 4.3 Search Products
+GET {{baseUrl}}/api/products/search?keyword=Product
+Authorization: Bearer {{token}}
+
+### 4.4 Filter Products by Category
+GET {{baseUrl}}/api/products/category/Electronics?page=0&size=10
+Authorization: Bearer {{token}}
+
+### 4.5 Create New Product
+POST {{baseUrl}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Dell XPS 13",
+  "sku": "DELL-XPS13-2024",
+  "category": "Electronics",
+  "brand": "Dell",
+  "price": 25000000,
+  "costPrice": 20000000,
+  "unit": "PIECE",
+  "weight": 1.2,
+  "description": "Dell XPS 13 - Intel Core i7, 16GB RAM, 512GB SSD",
+  "status": "ACTIVE",
+  "supplierId": 1
+}
+
+### 4.6 Update Product
+PUT {{baseUrl}}/api/products/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Product 1 - Updated",
+  "sku": "SKU00001",
+  "category": "Electronics",
+  "brand": "Brand 2",
+  "price": 75000,
+  "costPrice": 50000,
+  "unit": "PIECE",
+  "weight": 1.5,
+  "description": "Updated description",
+  "status": "ACTIVE",
+  "supplierId": 1
+}
+
+### 4.7 Delete Product
+DELETE {{baseUrl}}/api/products/21
+Authorization: Bearer {{token}}
+
+
+### ============================================
+### 5. SUPPLIER MANAGEMENT
+### ============================================
+
+### 5.1 Get All Suppliers
+GET {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+
+### 5.2 Get Supplier by ID
+GET {{baseUrl}}/api/suppliers/1
+Authorization: Bearer {{token}}
+
+### 5.3 Create New Supplier
+POST {{baseUrl}}/api/suppliers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Cong ty XYZ",
+  "code": "SUP002",
+  "contactPerson": "Tran Van Y",
+  "email": "contact@xyz.com",
+  "phoneNumber": "0923456789",
+  "address": "200 Tran Hung Dao, Ha Noi",
+  "taxCode": "9876543210",
+  "status": "ACTIVE",
+  "rating": 4.8
+}
+
+
+### ============================================
+### 6. ORDER MANAGEMENT
+### ============================================
+
+### 6.1 Get All Orders (Paginated)
+GET {{baseUrl}}/api/orders?page=0&size=10
+Authorization: Bearer {{token}}
+
+### 6.2 Get Order by ID
+GET {{baseUrl}}/api/orders/1
+Authorization: Bearer {{token}}
+
+### 6.3 Create New Order
+POST {{baseUrl}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "warehouseId": 1,
+  "orderItems": [
+    {
+      "productId": 1,
+      "quantity": 10,
+      "price": 50000
+    },
+    {
+      "productId": 2,
+      "quantity": 5,
+      "price": 100000
+    },
+    {
+      "productId": 3,
+      "quantity": 20,
+      "price": 150000
+    }
+  ],
+  "shippingAddress": "456 Nguyen Trai, Thanh Xuan",
+  "shippingCity": "Ha Noi",
+  "shippingDistrict": "Thanh Xuan",
+  "notes": "Giao hang truoc 5pm"
+}
+
+### 6.4 Update Order Status
+PUT {{baseUrl}}/api/orders/1/status?status=PROCESSING
+Authorization: Bearer {{token}}
+
+### 6.5 Cancel Order
+PUT {{baseUrl}}/api/orders/1/cancel
+Authorization: Bearer {{token}}
+
+
+### ============================================
+### 7. INVENTORY MANAGEMENT
+### ============================================
+
+### 7.1 Get Inventory by Warehouse
+GET {{baseUrl}}/api/inventory/warehouse/1
+Authorization: Bearer {{token}}
+
+### 7.2 Get Inventory by Product
+GET {{baseUrl}}/api/inventory/product/1
+Authorization: Bearer {{token}}
+
+### 7.3 Check Low Stock Products
+GET {{baseUrl}}/api/inventory/low-stock?threshold=10
+Authorization: Bearer {{token}}
+
+
+### ============================================
+### 8. DASHBOARD & STATISTICS
+### ============================================
+
+### 8.1 Get Dashboard Stats
+GET {{baseUrl}}/api/dashboard/stats
+Authorization: Bearer {{token}}
+
+### 8.2 Get Recent Orders
+GET {{baseUrl}}/api/dashboard/recent-orders?limit=5
+Authorization: Bearer {{token}}
+
+### 8.3 Get Top Products
+GET {{baseUrl}}/api/dashboard/top-products?limit=10
+Authorization: Bearer {{token}}
+
+
+### ============================================
+### 9. SHIPMENT MANAGEMENT
+### ============================================
+
+### 9.1 Get All Shipments
+GET {{baseUrl}}/api/shipments?page=0&size=10
+Authorization: Bearer {{token}}
+
+### 9.2 Get Shipment by ID
+GET {{baseUrl}}/api/shipments/1
+Authorization: Bearer {{token}}
+
+### 9.3 Track Shipment
+GET {{baseUrl}}/api/shipments/track/TRACK001
+Authorization: Bearer {{token}}
+
+### 9.4 Update Shipment Location (Driver only)
+PUT {{baseUrl}}/api/shipments/1/location
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "latitude": 21.0285,
+  "longitude": 105.8542,
+  "speed": 45.5,
+  "status": "IN_TRANSIT"
+}
+
+
+### ============================================
+### 10. USER MANAGEMENT (Admin only)
+### ============================================
+
+### 10.1 Get All Users
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+
+### 10.2 Get User by ID
+GET {{baseUrl}}/api/users/1
+Authorization: Bearer {{token}}
+
+### 10.3 Update User Role
+PUT {{baseUrl}}/api/users/2/role?role=MANAGER
+Authorization: Bearer {{token}}
+
+### 10.4 Disable User
+PUT {{baseUrl}}/api/users/2/disable
+Authorization: Bearer {{token}}
+
+### 10.5 Enable User
+PUT {{baseUrl}}/api/users/2/enable
+Authorization: Bearer {{token}}
