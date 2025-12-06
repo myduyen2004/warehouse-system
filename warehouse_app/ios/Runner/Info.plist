@@ -45,5 +45,17 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Thêm các key sau vào file Info.plist -->
+
+<!-- Camera Permission -->
+<key>NSCameraUsageDescription</key>
+<string>Ứng dụng cần truy cập camera để chụp ảnh khuôn mặt cho chấm công</string>
+
+<!-- Location Permission -->
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Ứng dụng cần truy cập vị trí để xác định địa điểm chấm công</string>
+
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Ứng dụng cần truy cập vị trí để xác định địa điểm chấm công</string>
 </dict>
 </plist>

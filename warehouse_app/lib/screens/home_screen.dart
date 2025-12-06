@@ -4,7 +4,8 @@ import 'products/product_list_screen.dart';
 import 'warehouse/warehouse_list_screen.dart';
 import 'inventory/inventory_screen.dart';
 import 'login_screen.dart';
-
+import 'attendance/attendance_screen.dart';
+import 'attendance/register_face_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ProductListScreen(),
     WarehouseListScreen(),
     InventoryScreen(),
+    AttendanceScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -93,6 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.assessment),
             label: 'Tồn kho',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.face),
+            label: 'Chấm công',
+          ),
         ],
       ),
       drawer: Drawer(
@@ -161,6 +167,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() => _selectedIndex = 2);
               },
             ),
+            ListTile(
+  leading: const Icon(Icons.face),
+  title: const Text('Đăng ký khuôn mặt'),
+  onTap: () {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RegisterFaceScreen(),
+      ),
+    );
+  },
+),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.settings),
@@ -177,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _logout();
               },
             ),
+
           ],
         ),
       ),

@@ -75,6 +75,24 @@ public class DataLoader implements CommandLineRunner {
         manager.setUpdatedAt(LocalDateTime.now());
         userRepository.save(manager);
 
+        if (!userRepository.existsByUsername("staff")) {
+            User staff = new User();
+            staff.setUsername("staff");
+            staff.setPassword(passwordEncoder.encode("staff123"));
+            staff.setEmail("staff@warehouse.com");
+            staff.setFullName("Warehouse Staff");
+            staff.setPhoneNumber("0987654378");
+            staff.setRole(Role.WAREHOUSE_STAFF);
+            staff.setEnabled(true);
+            staff.setAccountNonLocked(true);
+            staff.setCreatedAt(LocalDateTime.now());
+            staff.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(staff);
+            log.info("Added staff user");
+        } else {
+            log.info("Staff user already exists, skipping");
+        }
+
         log.info("Loaded {} users", userRepository.count());
     }
 

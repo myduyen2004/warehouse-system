@@ -1,0 +1,22 @@
+# --- Python cơ bản (Bắt buộc) ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Môi trường ảo (Quan trọng nhất - Có trong ảnh của bạn) ---
+# Không bao giờ up folder venv lên git vì nó rất nặng và phụ thuộc vào máy từng người
+venv/
+env/
+.env
+
+# --- Dữ liệu khuôn mặt (Project Specific) ---
+# Thường thì data không nên up lên code source, đặc biệt là ảnh
+face_data/
+
+# --- IDE Settings (Cấu hình VS Code của riêng máy bạn) ---
+.vscode/
+.idea/
+
+# --- Các file log hoặc database (nếu có sau này) ---
+*.log
+*.sqlite3

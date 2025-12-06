@@ -15,8 +15,8 @@ POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin123"
+  "username": "staff",
+  "password": "staff123"
 }
 
 ### 1.2 Login Manager
@@ -338,3 +338,9 @@ Authorization: Bearer {{token}}
 ### 10.5 Enable User
 PUT {{baseUrl}}/api/users/2/enable
 Authorization: Bearer {{token}}
+
+
+### Check face registered
+GET http://localhost:8080/api/attendance/check-face-registered/1
+Authorization: Bearer {{token}}
+Accept: application/json
